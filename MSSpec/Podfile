@@ -1,0 +1,14 @@
+platform :ios, "7.0"
+
+target :App, :exclusive => true do
+	pod 'Objection', '~> 1.2'
+	pod 'libextobjc', '~> 0.3'
+
+	link_with "MSSpec"
+
+	target :Tests do
+		pod 'Kiwi/XCTest', '~> 2.x'
+
+		link_with "MSSpecTests"
+	end
+end

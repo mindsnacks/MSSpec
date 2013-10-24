@@ -1,0 +1,12 @@
+//
+//  MSSpecTests-Prefix.pch
+//  MSSpec
+//
+//  Created by Nacho Soto on 10/25/13.
+//  Copyright (c) 2013 MindSnacks. All rights reserved.
+//
+
+#import "MSSpec-Prefix.pch"
+
+#import <Kiwi/Kiwi.h>
+#import "MSSpec.h"
