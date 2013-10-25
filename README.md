@@ -57,5 +57,7 @@ end
 ```
 You don't need to add Objection or Kiwi.
 
-Then simply ```#import <MSSpec/MSInjection.h>``` in your main target's pch file, and ```#import <MSSpec/MSSpec.h>``` to your test's target pch file.
+Finally:
+- ```#import <MSSpec/MSInjection.h>``` in your main target's pch file.
+- And ```#import <MSSpec/MSSpec.h>``` in your test's target pch file.
 
