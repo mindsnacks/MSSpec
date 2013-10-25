@@ -32,13 +32,13 @@ context(@"when created", ^{
         [[[car brakes] shouldNot] beNil];
     });
     
-it(@"has a configured engine", ^{
-    NSString *name = @"name";
-    
-    [engine stub:@selector(name) andReturn:name];
-    
-    [[car.engine.name should] equal:name];
-});
+    it(@"has a configured engine", ^{
+        NSString *name = @"name";
+        
+        [engine stub:@selector(name) andReturn:name];
+        
+        [[car.engine.name should] equal:name];
+    });
 });
 
 MSSPEC_END
