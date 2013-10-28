@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 MindSnacks. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
 #import <Kiwi/Kiwi.h>
 
 @interface MSSpec : KWSpec
