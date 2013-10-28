@@ -11,10 +11,8 @@
 @implementation MSSpecTests
 
 + (void)load {
-    if (self == [MSSpecTests class]) {
-        @autoreleasepool {
-            [JSObjection setDefaultInjector:[JSObjection createInjector]];
-        }
+    @autoreleasepool {
+        [JSObjection setDefaultInjector:[JSObjection createInjector]];
     }
 }
 
