@@ -37,6 +37,8 @@ A series of macros also make using Objection much easier:
 	tests.dependency 'Kiwi/XCTest', '~> 2.x'	 
 	tests.dependency 'MSSpec/App'
 
+	tests.framework = 'XCTest'
+
 	tests.source_files = 'MSSpec/Classes/Tests/*.{h,m}'
 	tests.public_header_files = 'MSSpec/Classes/Tests/MSSpec.h'
 
