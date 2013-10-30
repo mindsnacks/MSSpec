@@ -30,19 +30,19 @@
     \
     describe(nil, ^{\
     \
-    beforeAll(^{\
-        [self prepareMocks:_classesToMock];\
-    });\
-    \
-    afterAll(^{\
-        [self resetMocks];\
-    });\
-    \
-    context(nil, ^{\
+        beforeAll(^{\
+            [self prepareMocks:_classesToMock];\
+        });\
+        \
+        afterAll(^{\
+            [self resetMocks];\
+        });\
+        \
+        context(nil, ^{\
 
 #define MSSPEC_END \
-    });\
-    \
+        });\
+        \
     });\
     \
     SPEC_END
