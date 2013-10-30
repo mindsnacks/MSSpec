@@ -28,17 +28,21 @@
     \
     NSMutableArray *_classesToMock = [NSMutableArray array];\
     \
-    beforeAll(^{\
-        [self prepareMocks:_classesToMock];\
-    });\
+    describe(nil, ^{\
     \
-    afterAll(^{\
-        [self resetMocks];\
-    });\
-    \
-    context(nil, ^{\
+        beforeAll(^{\
+            [self prepareMocks:_classesToMock];\
+        });\
+        \
+        afterAll(^{\
+            [self resetMocks];\
+        });\
+        \
+        context(nil, ^{\
 
 #define MSSPEC_END \
+        });\
+        \
     });\
     \
     SPEC_END
