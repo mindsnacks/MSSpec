@@ -28,6 +28,8 @@
     \
     NSMutableArray *_classesToMock = [NSMutableArray array];\
     \
+    describe(nil, ^{\
+    \
     beforeAll(^{\
         [self prepareMocks:_classesToMock];\
     });\
@@ -39,6 +41,8 @@
     context(nil, ^{\
 
 #define MSSPEC_END \
+    });\
+    \
     });\
     \
     SPEC_END
