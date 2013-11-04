@@ -43,6 +43,8 @@
  */
 #define MSInjectionCreateObject(CLS) [JSObjection defaultInjector][[CLS class]]
 
+#define MSInjectionCreateObjectWithArgs(CLS, ...) [[JSObjection defaultInjector] getObjectWithArgs:[CLS class], __VA_ARGS__, nil]
+
 /**
  * If the object has declared its dependencies using `MSInjectionRequireProperties`, but was allocated
  * outside of the injector's life cycle, use this to immediately inject dependencies.
