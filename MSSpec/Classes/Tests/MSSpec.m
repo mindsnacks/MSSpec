@@ -18,18 +18,25 @@ static NSMutableArray *_addedModules;
 
 @implementation _MSInjectionModule {
     NSArray *_mockedClasses;
+    NSArray *_mockedProtocols;
+    
+    // this contains mocks for both classes and protocols
+    // which might produce colisions.
     NSMutableDictionary *_mocks;
 }
 
 - (id)init {
-    return [self initWithMockedClasses:nil];
+    return [self initWithMockedClasses:nil protocols:nil];
 }
 
-- (id)initWithMockedClasses:(NSArray *)mockedClasses {
+- (id)initWithMockedClasses:(NSArray *)mockedClasses
+                  protocols:(NSArray *)mockedProtocols {
     NSParameterAssert(mockedClasses);
+    NSParameterAssert(mockedProtocols);
     
     if ((self = [super init])) {
         _mockedClasses = [mockedClasses copy];
+        _mockedProtocols = [mockedProtocols copy];
         _mocks = [NSMutableDictionary new];
     }
     
@@ -43,16 +50,24 @@ static NSMutableArray *_addedModules;
         [self bindBlock:^id(__unused JSObjectionInjector *context) {
             NSString *const key = NSStringFromClass(cls);
             
-            // cache mocks so that the one injected to classes
-            // and the one injected to the test is the same one.
-            // We can't use `JSObjectionScopeSingleton` because that
-            // doesn't seem to work with `bindBlock:`
             if (_mocks[key] == nil) {
                 _mocks[key] = [cls mock];
             }
             
             return _mocks[key];
         } toClass:cls];
+    }
+    
+    for (Protocol *protocol in _mockedProtocols) {
+        [self bindBlock:^id(__unused JSObjectionInjector *context) {
+            NSString *const key = NSStringFromProtocol(protocol);
+            
+            if (_mocks[key] == nil) {
+                _mocks[key] = [KWMock mockForProtocol:protocol];
+            }
+            
+            return _mocks[key];
+        } toProtocol:protocol];
     }
 }
 
@@ -62,12 +77,14 @@ static NSMutableArray *_addedModules;
 
 static JSObjectionInjector *_lastUsedInjector;
 
-+ (void)prepareMocks:(NSArray *)mockedClasses {
++ (void)prepareMocksForClasses:(NSArray *)mockedClasses
+                     protocols:(NSArray *)mockedProtocols {
     NSAssert(_lastUsedInjector == nil, @"Mocks weren't reset before calling this method again.");
     
     _lastUsedInjector = JSObjection.defaultInjector;
     
-    [JSObjection ms_addModule:[[_MSInjectionModule alloc] initWithMockedClasses:mockedClasses]];
+    [JSObjection ms_addModule:[[_MSInjectionModule alloc] initWithMockedClasses:mockedClasses
+                                                                      protocols:mockedProtocols]];
 }
 
 + (void)resetMocks {

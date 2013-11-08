@@ -36,12 +36,12 @@
 #define MSInjectionDesignatedInitializer(SEL) objection_initializer(SEL)
 
 /**
- * Instantiates an object of type `CLS` and injects it all its dependencies.
+ * Instantiates an object for that class or protocol and injects it all its dependencies.
  * This object is initialized with `init:` unless `MSInjectionDesignatedInitializer` has been used.
- * @param CLS: class name to instantiate.
  * @see `MSInjectionInjectDependencies` if an object has been created without this initializer.
  */
 #define MSInjectionCreateObject(CLS) [JSObjection defaultInjector][[CLS class]]
+#define MSInjectionCreateObjectWithProtocol(PROTOCOL) [JSObjection defaultInjector][@protocol(PROTOCOL)]
 
 #define MSInjectionCreateObjectWithArgs(CLS, ...) [[JSObjection defaultInjector] getObjectWithArgs:[CLS class], __VA_ARGS__, nil]
 
