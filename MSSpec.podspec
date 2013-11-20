@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MSSpec"
-  s.version      = "0.0.5"
+  s.version      = "0.0.6"
   s.summary      = "Kiwi Spec with support to inject mocks using Objection"
   s.description  = <<-DESC
 Kiwi Spec with support to inject mocks using Objection.
@@ -20,7 +20,7 @@ A series of macros also make using Objection much easier:
 
   s.requires_arc = true
 
-  s.ios.deployment_target = '7.0'
+  s.ios.deployment_target = '6.0'
   s.osx.deployment_target = '10.7'
 
   s.source       = { :git => "https://github.com/mindsnacks/MSSpec.git", :tag => s.version.to_s }
