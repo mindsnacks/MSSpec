@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MSSpec"
-  s.version      = "0.0.6"
+  s.version      = "0.0.7"
   s.summary      = "Kiwi Spec with support to inject mocks using Objection"
   s.description  = <<-DESC
 Kiwi Spec with support to inject mocks using Objection.
