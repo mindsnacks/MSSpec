@@ -40,7 +40,8 @@
  * This object is initialized with `init:` unless `MSInjectionDesignatedInitializer` has been used.
  * @see `MSInjectionInjectDependencies` if an object has been created without this initializer.
  */
-#define MSInjectionCreateObject(CLS) (CLS *)[JSObjection defaultInjector][[CLS class]]
+#define MSInjectionCreateObject(CLS) (CLS *)MSInjectionCreateObjectWithClass([CLS class])
+#define MSInjectionCreateObjectWithClass(CLS) [JSObjection defaultInjector][CLS]
 #define MSInjectionCreateObjectWithProtocol(PROTOCOL) (id<PROTOCOL>)[JSObjection defaultInjector][@protocol(PROTOCOL)]
 
 #define MSInjectionCreateObjectWithArgs(CLS, ...) (CLS *)[[JSObjection defaultInjector] getObjectWithArgs:[CLS class], __VA_ARGS__, nil]
