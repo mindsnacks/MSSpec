@@ -11,6 +11,7 @@
 @interface MSSpec : KWSpec
 
 + (void)prepareMocksForClasses:(NSArray *)mockedClasses
+               nullMockClasses:(NSArray *)nullMockClasses
                      protocols:(NSArray *)mockedProtocols;
 + (void)resetMocks;
 
@@ -27,13 +28,14 @@
     \
     + (void)buildExampleGroups { \
     \
-        NSMutableArray *_classesToMock = [NSMutableArray array];\
-        NSMutableArray *_protocolsToMock = [NSMutableArray array];\
+        NSMutableArray *_classesToMock      = [NSMutableArray array];\
+        NSMutableArray *_classesToNullMock  = [NSMutableArray array];\
+        NSMutableArray *_protocolsToMock    = [NSMutableArray array];\
     \
     describe(nil, ^{\
     \
         beforeAll(^{\
-            [self prepareMocksForClasses:_classesToMock protocols:_protocolsToMock];\
+            [self prepareMocksForClasses:_classesToMock nullMockClasses:_classesToNullMock protocols:_protocolsToMock];\
         });\
         \
         afterAll(^{\
@@ -50,4 +52,5 @@
     SPEC_END
 
 #define MSMockClass(CLS) [_classesToMock addObject:[CLS class]]
+#define MSNullMockClass(CLS) [_classesToNullMock addObject:[CLS class]]
 #define MSMockProtocol(PROTOCOL) [_protocolsToMock addObject:@protocol(PROTOCOL)]

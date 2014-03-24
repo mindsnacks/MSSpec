@@ -18,6 +18,7 @@ static NSMutableArray *_addedModules;
 
 @implementation _MSInjectionModule {
     NSArray *_mockedClasses;
+    NSArray *_nullMockClasses;
     NSArray *_mockedProtocols;
     
     // this contains mocks for both classes and protocols
@@ -26,18 +27,21 @@ static NSMutableArray *_addedModules;
 }
 
 - (id)init {
-    return [self initWithMockedClasses:nil protocols:nil];
+    return [self initWithMockedClasses:nil nullMockClasses:nil protocols:nil];
 }
 
 - (id)initWithMockedClasses:(NSArray *)mockedClasses
+            nullMockClasses:(NSArray *)nullMockClasses
                   protocols:(NSArray *)mockedProtocols {
     NSParameterAssert(mockedClasses);
+    NSParameterAssert(nullMockClasses);
     NSParameterAssert(mockedProtocols);
     
     if ((self = [super init])) {
-        _mockedClasses = [mockedClasses copy];
-        _mockedProtocols = [mockedProtocols copy];
-        _mocks = [NSMutableDictionary new];
+        _mockedClasses = mockedClasses.copy;
+        _nullMockClasses = nullMockClasses.copy;
+        _mockedProtocols = mockedProtocols.copy;;
+        _mocks = NSMutableDictionary.new;
     }
     
     return self;
@@ -52,6 +56,18 @@ static NSMutableArray *_addedModules;
             
             if (_mocks[key] == nil) {
                 _mocks[key] = [cls mock];
+            }
+            
+            return _mocks[key];
+        } toClass:cls];
+    }
+    
+    for (Class cls in _nullMockClasses) {
+        [self bindBlock:^id(__unused JSObjectionInjector *context) {
+            NSString *const key = NSStringFromClass(cls);
+            
+            if (_mocks[key] == nil) {
+                _mocks[key] = [cls nullMock];
             }
             
             return _mocks[key];
@@ -78,12 +94,14 @@ static NSMutableArray *_addedModules;
 static JSObjectionInjector *_lastUsedInjector;
 
 + (void)prepareMocksForClasses:(NSArray *)mockedClasses
+               nullMockClasses:(NSArray *)nullMockClasses
                      protocols:(NSArray *)mockedProtocols {
     NSAssert(_lastUsedInjector == nil, @"Mocks weren't reset before calling this method again.");
     
     _lastUsedInjector = JSObjection.defaultInjector;
     
     [JSObjection ms_addModule:[[_MSInjectionModule alloc] initWithMockedClasses:mockedClasses
+                                                                nullMockClasses:nullMockClasses
                                                                       protocols:mockedProtocols]];
 }
 
