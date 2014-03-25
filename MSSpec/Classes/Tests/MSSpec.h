@@ -11,6 +11,7 @@
 @interface MSSpec : KWSpec
 
 + (void)prepareMocksForClasses:(NSArray *)mockedClasses
+            classesToReturnNil:(NSArray *)classesToReturnNil
                nullMockClasses:(NSArray *)nullMockClasses
                      protocols:(NSArray *)mockedProtocols;
 + (void)resetMocks;
@@ -29,13 +30,14 @@
     + (void)buildExampleGroups { \
     \
         NSMutableArray *_classesToMock      = [NSMutableArray array];\
+        NSMutableArray *_classesToReturnNil = [NSMutableArray array];\
         NSMutableArray *_classesToNullMock  = [NSMutableArray array];\
         NSMutableArray *_protocolsToMock    = [NSMutableArray array];\
     \
     describe(nil, ^{\
     \
         beforeAll(^{\
-            [self prepareMocksForClasses:_classesToMock nullMockClasses:_classesToNullMock protocols:_protocolsToMock];\
+            [self prepareMocksForClasses:_classesToMock classesToReturnNil:_classesToReturnNil nullMockClasses:_classesToNullMock protocols:_protocolsToMock];\
         });\
         \
         afterAll(^{\
@@ -51,6 +53,11 @@
     \
     SPEC_END
 
+// injects a mock for `CLS`.
 #define MSMockClass(CLS) [_classesToMock addObject:[CLS class]]
+// injects `nil` for `CLS`.
+#define MSNilClass(CLS) [_classesToReturnNil addObject:[CLS class]]
+// injects a null mock for `CLS`.
 #define MSNullMockClass(CLS) [_classesToNullMock addObject:[CLS class]]
+// injects a mock for `PROTOCOL`.
 #define MSMockProtocol(PROTOCOL) [_protocolsToMock addObject:@protocol(PROTOCOL)]

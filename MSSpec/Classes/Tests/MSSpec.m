@@ -18,6 +18,7 @@ static NSMutableArray *_addedModules;
 
 @implementation _MSInjectionModule {
     NSArray *_mockedClasses;
+    NSArray *_classesToReturnNil;
     NSArray *_nullMockClasses;
     NSArray *_mockedProtocols;
     
@@ -27,20 +28,24 @@ static NSMutableArray *_addedModules;
 }
 
 - (id)init {
-    return [self initWithMockedClasses:nil nullMockClasses:nil protocols:nil];
+    return [self initWithMockedClasses:nil classesToReturnNil:nil nullMockClasses:nil protocols:nil];
 }
 
 - (id)initWithMockedClasses:(NSArray *)mockedClasses
+         classesToReturnNil:(NSArray *)classesToReturnNil
             nullMockClasses:(NSArray *)nullMockClasses
                   protocols:(NSArray *)mockedProtocols {
     NSParameterAssert(mockedClasses);
+    NSParameterAssert(classesToReturnNil);
     NSParameterAssert(nullMockClasses);
     NSParameterAssert(mockedProtocols);
     
     if ((self = [super init])) {
         _mockedClasses = mockedClasses.copy;
+        _classesToReturnNil = classesToReturnNil.copy;
         _nullMockClasses = nullMockClasses.copy;
         _mockedProtocols = mockedProtocols.copy;;
+        
         _mocks = NSMutableDictionary.new;
     }
     
@@ -59,6 +64,12 @@ static NSMutableArray *_addedModules;
             }
             
             return _mocks[key];
+        } toClass:cls];
+    }
+    
+    for (Class cls in _classesToReturnNil) {
+        [self bindBlock:^id(__unused JSObjectionInjector *context) {
+            return nil;
         } toClass:cls];
     }
     
@@ -94,6 +105,7 @@ static NSMutableArray *_addedModules;
 static JSObjectionInjector *_lastUsedInjector;
 
 + (void)prepareMocksForClasses:(NSArray *)mockedClasses
+            classesToReturnNil:(NSArray *)classesToReturnNil
                nullMockClasses:(NSArray *)nullMockClasses
                      protocols:(NSArray *)mockedProtocols {
     NSAssert(_lastUsedInjector == nil, @"Mocks weren't reset before calling this method again.");
@@ -101,6 +113,7 @@ static JSObjectionInjector *_lastUsedInjector;
     _lastUsedInjector = JSObjection.defaultInjector;
     
     [JSObjection ms_addModule:[[_MSInjectionModule alloc] initWithMockedClasses:mockedClasses
+                                                             classesToReturnNil:classesToReturnNil
                                                                 nullMockClasses:nullMockClasses
                                                                       protocols:mockedProtocols]];
 }
