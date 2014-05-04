@@ -41,8 +41,8 @@
  * @see `MSInjectionInjectDependencies` if an object has been created without this initializer.
  */
 #define MSInjectionCreateObject(CLS) ((CLS *)MSInjectionCreateObjectWithClass([CLS class]))
-#define MSInjectionCreateObjectWithClass(CLS) ([JSObjection defaultInjector][CLS])
-#define MSInjectionCreateObjectWithProtocol(PROTOCOL) ((id<PROTOCOL>)[JSObjection defaultInjector][@protocol(PROTOCOL)])
+#define MSInjectionCreateObjectWithClass(CLS) _MSInjectionCreateObject(CLS)
+#define MSInjectionCreateObjectWithProtocol(PROTOCOL) ((id<PROTOCOL>)_MSInjectionCreateObject(@protocol(PROTOCOL)))
 
 #define MSInjectionCreateObjectWithArgs(CLS, ...) ((CLS *)[[JSObjection defaultInjector] getObjectWithArgs:[CLS class], __VA_ARGS__, nil])
 
@@ -55,4 +55,5 @@
 
 // -- private helper macros --
 
+#define _MSInjectionCreateObject(OBJorPROTOCOL) ([[JSObjection defaultInjector] getObject:(OBJorPROTOCOL)])
 #define _MSInjectionSelectorString(INDEX, STR) NSStringFromSelector(@selector(STR)),
