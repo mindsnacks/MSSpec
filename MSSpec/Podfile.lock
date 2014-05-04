@@ -92,7 +92,7 @@ PODS:
   - Objection (1.2)
 
 DEPENDENCIES:
-  - Kiwi/XCTest (~> 2.0)
+  - Kiwi/XCTest (~> 2.x)
   - libextobjc (~> 0.3)
   - Objection (~> 1.2)
 
