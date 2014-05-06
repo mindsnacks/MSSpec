@@ -48,7 +48,7 @@ static NSMutableArray *_addedModules;
         _classesToReturnNil = classesToReturnNil.copy;
         _nullMockClasses = nullMockClasses.copy;
         _mockedProtocols = mockedProtocols.copy;
-        _mockedObjects = _mockedObjects.copy;
+        _mockedObjects = objects.copy;
         
         _mocks = NSMutableDictionary.new;
     }
