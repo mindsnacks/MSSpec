@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MSSpec"
-  s.version      = "0.1.2"
+  s.version      = "0.1.3"
   s.summary      = "Kiwi Spec with support to inject mocks using Objection"
   s.description  = <<-DESC
 Kiwi Spec with support to inject mocks using Objection.
@@ -34,7 +34,7 @@ A series of macros also make using Objection much easier:
   end
 
   s.subspec 'Tests' do |tests|
-	tests.dependency 'Kiwi/XCTest', '~> 2.x'	 
+	tests.dependency 'Kiwi', '~> 2.3'	 
 	tests.dependency 'MSSpec/App'
 
 	tests.framework = 'XCTest'
