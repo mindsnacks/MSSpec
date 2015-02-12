@@ -5,34 +5,34 @@ PODS:
     - Kiwi/ARC
     - Kiwi/NonARC
   - libextobjc (0.3):
-    - libextobjc/EXTADT
-    - libextobjc/EXTAnnotation
-    - libextobjc/EXTAspect
-    - libextobjc/EXTBlockMethod
-    - libextobjc/EXTBlockTarget
-    - libextobjc/EXTConcreteProtocol
-    - libextobjc/EXTDispatchObject
-    - libextobjc/EXTFinalMethod
-    - libextobjc/EXTKeyPathCoding
-    - libextobjc/EXTMaybe
-    - libextobjc/EXTMixin
-    - libextobjc/EXTMultimethod
-    - libextobjc/EXTMultiObject
-    - libextobjc/EXTNil
-    - libextobjc/EXTPassthrough
-    - libextobjc/EXTPrivateMethod
-    - libextobjc/EXTProtocolCategory
-    - libextobjc/EXTSafeCategory
-    - libextobjc/EXTScope
-    - libextobjc/EXTSelectorChecking
-    - libextobjc/EXTSwizzle
-    - libextobjc/EXTSynthesize
-    - libextobjc/EXTTuple
-    - libextobjc/EXTVarargs
-    - libextobjc/NSInvocation+EXT
-    - libextobjc/NSMethodSignature+EXT
-    - libextobjc/RuntimeExtensions
-    - libextobjc/UmbrellaHeader
+    - libextobjc/EXTADT (= 0.3)
+    - libextobjc/EXTAnnotation (= 0.3)
+    - libextobjc/EXTAspect (= 0.3)
+    - libextobjc/EXTBlockMethod (= 0.3)
+    - libextobjc/EXTBlockTarget (= 0.3)
+    - libextobjc/EXTConcreteProtocol (= 0.3)
+    - libextobjc/EXTDispatchObject (= 0.3)
+    - libextobjc/EXTFinalMethod (= 0.3)
+    - libextobjc/EXTKeyPathCoding (= 0.3)
+    - libextobjc/EXTMaybe (= 0.3)
+    - libextobjc/EXTMixin (= 0.3)
+    - libextobjc/EXTMultimethod (= 0.3)
+    - libextobjc/EXTMultiObject (= 0.3)
+    - libextobjc/EXTNil (= 0.3)
+    - libextobjc/EXTPassthrough (= 0.3)
+    - libextobjc/EXTPrivateMethod (= 0.3)
+    - libextobjc/EXTProtocolCategory (= 0.3)
+    - libextobjc/EXTSafeCategory (= 0.3)
+    - libextobjc/EXTScope (= 0.3)
+    - libextobjc/EXTSelectorChecking (= 0.3)
+    - libextobjc/EXTSwizzle (= 0.3)
+    - libextobjc/EXTSynthesize (= 0.3)
+    - libextobjc/EXTTuple (= 0.3)
+    - libextobjc/EXTVarargs (= 0.3)
+    - libextobjc/NSInvocation+EXT (= 0.3)
+    - libextobjc/NSMethodSignature+EXT (= 0.3)
+    - libextobjc/RuntimeExtensions (= 0.3)
+    - libextobjc/UmbrellaHeader (= 0.3)
   - libextobjc/EXTADT (0.3):
     - libextobjc/RuntimeExtensions
   - libextobjc/EXTAnnotation (0.3):
@@ -97,9 +97,9 @@ DEPENDENCIES:
   - Objection (~> 1.2)
 
 SPEC CHECKSUMS:
-  Kiwi: 03539aeb004ccd42bdbc31253617b26364315df4
-  libextobjc: 820a79dbbbc498611e04fffd07d2d52a5588e7ac
-  libffi: 64ef39353e747bb2b25e1026afd96a157bf9231c
-  Objection: 39f4abb42cddbeed7cb20e4a02a30217955d76a1
+  Kiwi: 513ec6b10d7545b0cbeeb89f4f3adffe8e5520be
+  libextobjc: f1b1ea2e42fbfe7ae5d4f8624bbb4f56002e8536
+  libffi: c6c0bfc3b84872fd99e0e35f8d9665fc7a996f6f
+  Objection: 19f31e081a2116154f4ea1c86cb03868a0cebdab
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.36.0.beta.2
