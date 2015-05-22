@@ -21,6 +21,7 @@ static NSMutableArray *_addedModules;
     NSArray *_classesToReturnNil;
     NSArray *_nullMockClasses;
     NSArray *_mockedProtocols;
+    NSArray *_nullMockProtocols;
     NSDictionary *_mockedObjects;
     
     // this contains mocks for both classes and protocols
@@ -29,18 +30,20 @@ static NSMutableArray *_addedModules;
 }
 
 - (id)init {
-    return [self initWithMockedClasses:nil classesToReturnNil:nil nullMockClasses:nil protocols:nil objects:nil];
+    return [self initWithMockedClasses:nil classesToReturnNil:nil nullMockClasses:nil protocols:nil nullMockProtocols:nil objects:nil];
 }
 
 - (id)initWithMockedClasses:(NSArray *)mockedClasses
          classesToReturnNil:(NSArray *)classesToReturnNil
             nullMockClasses:(NSArray *)nullMockClasses
                   protocols:(NSArray *)mockedProtocols
+          nullMockProtocols:(NSArray *)nullMockProtocols
                     objects:(NSDictionary *)objects {
     NSParameterAssert(mockedClasses);
     NSParameterAssert(classesToReturnNil);
     NSParameterAssert(nullMockClasses);
     NSParameterAssert(mockedProtocols);
+    NSParameterAssert(nullMockProtocols);
     NSParameterAssert(objects);
     
     if ((self = [super init])) {
@@ -48,6 +51,7 @@ static NSMutableArray *_addedModules;
         _classesToReturnNil = classesToReturnNil.copy;
         _nullMockClasses = nullMockClasses.copy;
         _mockedProtocols = mockedProtocols.copy;
+        _nullMockProtocols = nullMockProtocols.copy;
         _mockedObjects = objects.copy;
         
         _mocks = NSMutableDictionary.new;
@@ -101,6 +105,18 @@ static NSMutableArray *_addedModules;
         } toProtocol:protocol];
     }
     
+    for (Protocol *protocol in _nullMockProtocols) {
+        [self bindBlock:^id(JSObjectionInjector *context) {
+            NSString *const key = NSStringFromProtocol(protocol);
+            
+            if (_mocks[key] == nil) {
+                _mocks[key] = [KWMock nullMockForProtocol:protocol];
+            }
+            
+            return _mocks[key];
+        } toProtocol:protocol];
+    }
+    
     [_mockedObjects enumerateKeysAndObjectsUsingBlock:^(Class class,
                                                         id obj,
                                                         BOOL *stop) {
@@ -118,6 +134,7 @@ static JSObjectionInjector *_lastUsedInjector;
             classesToReturnNil:(NSArray *)classesToReturnNil
                nullMockClasses:(NSArray *)nullMockClasses
                      protocols:(NSArray *)mockedProtocols
+             nullMockProtocols:(NSArray *)nullMockProtocols
                        objects:(NSDictionary *)objects {
     NSAssert(_lastUsedInjector == nil, @"Mocks weren't reset before calling this method again.");
     
@@ -127,6 +144,7 @@ static JSObjectionInjector *_lastUsedInjector;
                                                              classesToReturnNil:classesToReturnNil
                                                                 nullMockClasses:nullMockClasses
                                                                       protocols:mockedProtocols
+                                                              nullMockProtocols:nullMockProtocols
                                                                         objects:objects]];
 }
 
