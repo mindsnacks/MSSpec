@@ -34,7 +34,7 @@ A series of macros also make using Objection much easier:
   end
 
   s.subspec 'Tests' do |tests|
-	tests.dependency 'Kiwi', '~> 2.3.0'	 
+	tests.dependency 'Kiwi', '~> 2.4'	 
 	tests.dependency 'MSSpec/App'
 
 	tests.framework = 'XCTest'

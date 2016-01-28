@@ -1,5 +1,5 @@
 PODS:
-  - Kiwi (2.3.1)
+  - Kiwi (2.4.0)
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
     - libextobjc/EXTConcreteProtocol (= 0.4.1)
@@ -38,12 +38,12 @@ PODS:
   - Objection (1.6.1)
 
 DEPENDENCIES:
-  - Kiwi (~> 2.3.0)
+  - Kiwi (~> 2.4)
   - libextobjc (~> 0.3)
   - Objection (~> 1.6)
 
 SPEC CHECKSUMS:
-  Kiwi: f038a6c61f7a9e4d7766bff5717aa3b3fdb75f55
+  Kiwi: f49c9d54b28917df5928fe44968a39ed198cb8a8
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Objection: ed03f2219cb22d2b5b893114219fe6c7e3263bde
 

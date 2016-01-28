@@ -7,7 +7,7 @@ target :App, :exclusive => true do
 	link_with "MSSpec"
 
 	target :Tests do
-		pod 'Kiwi', '~> 2.3.0'
+		pod 'Kiwi', '~> 2.4'
 
 		link_with "MSSpecTests"
 	end
