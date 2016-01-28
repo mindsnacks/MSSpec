@@ -14,6 +14,7 @@
             classesToReturnNil:(NSArray *)classesToReturnNil
                nullMockClasses:(NSArray *)nullMockClasses
                      protocols:(NSArray *)mockedProtocols
+             nullMockProtocols:(NSArray *)nullMockProtocols
                        objects:(NSDictionary *)objects;
 + (void)resetMocks;
 
@@ -34,12 +35,13 @@
         NSMutableArray *_classesToReturnNil = NSMutableArray.array;\
         NSMutableArray *_classesToNullMock  = NSMutableArray.array;\
         NSMutableArray *_protocolsToMock    = NSMutableArray.array;\
+        NSMutableArray *_protocolsToNullMock= NSMutableArray.array;\
         NSMutableDictionary *_objectsToMock = NSMutableDictionary.dictionary;\
     \
     describe(nil, ^{\
     \
         beforeAll(^{\
-            [self prepareMocksForClasses:_classesToMock classesToReturnNil:_classesToReturnNil nullMockClasses:_classesToNullMock protocols:_protocolsToMock objects:_objectsToMock];\
+            [self prepareMocksForClasses:_classesToMock classesToReturnNil:_classesToReturnNil nullMockClasses:_classesToNullMock protocols:_protocolsToMock nullMockProtocols:_protocolsToNullMock objects:_objectsToMock];\
         });\
         \
         afterAll(^{\
@@ -63,5 +65,7 @@
 #define MSNullMockClass(CLS) [_classesToNullMock addObject:[CLS class]]
 // injects a mock for `PROTOCOL`.
 #define MSMockProtocol(PROTOCOL) [_protocolsToMock addObject:@protocol(PROTOCOL)]
+// injects a mull mock for `PROTOCOL`
+#define MSNullMockProtocol(PROTOCOL) [_protocolsToNullMock addObject:@protocol(PROTOCOL)]
 // injects an object for `CLS`.
 #define MSMockClassWithObject(CLS, OBJ) _objectsToMock[(id<NSCopying>)[CLS class]] = OBJ
