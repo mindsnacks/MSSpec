@@ -16,7 +16,7 @@ A series of macros also make using Objection much easier:
   s.homepage     = "https://github.com/mindsnacks/MSSpec"
   s.license      = { :type => 'BSD', :file => 'LICENSE' }
   s.author       = { "NachoSoto" => "hello@nachosoto.com" }
-  s.default_subspec = 'App'  
+  s.default_subspec = 'App'
 
   s.requires_arc = true
 
@@ -34,7 +34,7 @@ A series of macros also make using Objection much easier:
   end
 
   s.subspec 'Tests' do |tests|
-	tests.dependency 'Kiwi', '~> 2.3'	 
+	tests.dependency 'Kiwi', '~> 2.4'	 
 	tests.dependency 'MSSpec/App'
 
 	tests.framework = 'XCTest'

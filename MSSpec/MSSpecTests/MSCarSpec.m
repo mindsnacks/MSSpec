@@ -20,8 +20,8 @@ context(@"when created", ^{
     __block MSEngine *engine;
     
     beforeEach(^{
-        car = MSInjectionCreateObject(MSCar);
         engine = MSInjectionCreateObject(MSEngine);
+        car = MSInjectionCreateObject(MSCar);
     });
     
     it(@"has an engine", ^{
@@ -38,6 +38,10 @@ context(@"when created", ^{
         [engine stub:@selector(name) andReturn:name];
         
         [[car.engine.name should] equal:name];
+    });
+    
+    it(@"gets the same engine as the spec", ^{
+        [[car.engine should] equal:engine];
     });
 });
 
