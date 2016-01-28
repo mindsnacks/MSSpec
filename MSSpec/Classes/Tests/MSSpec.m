@@ -23,10 +23,6 @@ static NSMutableArray *_addedModules;
     NSArray *_mockedProtocols;
     NSArray *_nullMockProtocols;
     NSDictionary *_mockedObjects;
-    
-    // this contains mocks for both classes and protocols
-    // which might produce colisions.
-    NSMutableDictionary *_mocks;
 }
 
 - (id)init {
@@ -53,8 +49,6 @@ static NSMutableArray *_addedModules;
         _mockedProtocols = mockedProtocols.copy;
         _nullMockProtocols = nullMockProtocols.copy;
         _mockedObjects = objects.copy;
-        
-        _mocks = NSMutableDictionary.new;
     }
     
     return self;
@@ -65,56 +59,32 @@ static NSMutableArray *_addedModules;
     
     for (Class cls in _mockedClasses) {
         [self bindBlock:^id(__unused JSObjectionInjector *context) {
-            NSString *const key = NSStringFromClass(cls);
-            
-            if (_mocks[key] == nil) {
-                _mocks[key] = [cls mock];
-            }
-            
-            return _mocks[key];
-        } toClass:cls];
+            return [cls mock];
+        } toClass:cls inScope:JSObjectionScopeSingleton];
     }
     
     for (Class cls in _classesToReturnNil) {
         [self bindBlock:^id(__unused JSObjectionInjector *context) {
             return nil;
-        } toClass:cls];
+        } toClass:cls inScope:JSObjectionScopeSingleton];
     }
     
     for (Class cls in _nullMockClasses) {
         [self bindBlock:^id(__unused JSObjectionInjector *context) {
-            NSString *const key = NSStringFromClass(cls);
-            
-            if (_mocks[key] == nil) {
-                _mocks[key] = [cls nullMock];
-            }
-            
-            return _mocks[key];
-        } toClass:cls];
+            return [cls nullMock];
+        } toClass:cls inScope:JSObjectionScopeSingleton];
     }
     
     for (Protocol *protocol in _mockedProtocols) {
         [self bindBlock:^id(__unused JSObjectionInjector *context) {
-            NSString *const key = NSStringFromProtocol(protocol);
-            
-            if (_mocks[key] == nil) {
-                _mocks[key] = [KWMock mockForProtocol:protocol];
-            }
-            
-            return _mocks[key];
-        } toProtocol:protocol];
+            return [KWMock mockForProtocol:protocol];
+        } toProtocol:protocol inScope:JSObjectionScopeSingleton];
     }
     
     for (Protocol *protocol in _nullMockProtocols) {
         [self bindBlock:^id(JSObjectionInjector *context) {
-            NSString *const key = NSStringFromProtocol(protocol);
-            
-            if (_mocks[key] == nil) {
-                _mocks[key] = [KWMock nullMockForProtocol:protocol];
-            }
-            
-            return _mocks[key];
-        } toProtocol:protocol];
+            return [KWMock nullMockForProtocol:protocol];
+        } toProtocol:protocol inScope:JSObjectionScopeSingleton];
     }
     
     [_mockedObjects enumerateKeysAndObjectsUsingBlock:^(Class class,
